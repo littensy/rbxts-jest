@@ -75,7 +75,11 @@ importers:
         specifier: workspace:*
         version: link:../pretty-format
 
-  packages/jest-vendor: {}
+  packages/jest-vendor:
+    dependencies:
+      '@rbxts/react-vendor':
+        specifier: '*'
+        version: 0.3.6
 
   packages/pretty-format:
     dependencies:
@@ -176,6 +180,10 @@ packages:
   /@rbxts/compiler-types@2.3.0-types.0:
     resolution: {integrity: sha512-2kllUXLlK22OzSi3GmLT+/O70U9oB2iXp4rGFk5FLwc1pqf4W9EsInuJ0t7poLE2XnqnpW/ojff9CUNivI2+lw==}
     dev: true
+
+  /@rbxts/react-vendor@0.3.6:
+    resolution: {integrity: sha512-q3HilP6ZNHSgWW0lwka+Ft4Iq+fnPBppOeQhGua1XCtM2hEqhmUmME8DI1UlnaK/aGzdYW1bWC7YfHZhHGsIeA==}
+    dev: false
 
   /@rbxts/types@1.0.767:
     resolution: {integrity: sha512-GTHrvI0zTZQi6MZ91pOKgOcIioqwnmZMkRDjORtoD6vvEXSwlL6wcAY26//L3npfFQoz+37SkcLq9PODgRELFA==}

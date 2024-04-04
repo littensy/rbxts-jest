@@ -1,5 +1,9 @@
 import Emittery from "./emittery";
-import { Argv, GlobalConfig, Path, ProjectConfig } from "./config";
+import { Argv, GlobalConfig, InitialOptions, Path, ProjectConfig } from "./config";
+
+// Types
+
+export type Config = InitialOptions;
 
 // SearchSource
 

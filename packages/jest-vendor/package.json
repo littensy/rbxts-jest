@@ -23,5 +23,8 @@
 		"default.project.json",
 		"jest-lua.rbxm",
 		"types.d.ts"
-	]
+	],
+	"dependencies": {
+		"@rbxts/react-vendor": "*"
+	}
 }

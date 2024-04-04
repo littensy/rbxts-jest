@@ -1,1 +1,1 @@
-return require(script.Parent:WaitForChild("JestLua").JestMatcherUtils)
+return require(script.Parent.Parent:WaitForChild("JestLua").JestMatcherUtils)
