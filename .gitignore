@@ -2,6 +2,7 @@
 /node_modules
 /packages/*/node_modules
 /packages/*/README.md
+!packages/jest-vendor/README.md
 /packages/*/LICENSE.md
 /out
 /include

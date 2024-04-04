@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"description": "Internal module for @rbxts/jest",
 	"scripts": {
-		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."
+		"prepublishOnly": "cp ../../LICENSE.md ."
 	},
 	"author": "littensy",
 	"license": "MIT",
