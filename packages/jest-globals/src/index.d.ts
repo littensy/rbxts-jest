@@ -82,23 +82,10 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
 
 export declare namespace jest {
 	/**
-	 * Disables automatic mocking in the module loader.
-	 */
-	function autoMockOff(): typeof jest;
-	/**
-	 * Enables automatic mocking in the module loader.
-	 */
-	function autoMockOn(): typeof jest;
-	/**
 	 * Clears the mock.calls and mock.instances properties of all mocks.
 	 * Equivalent to calling .mockClear() on every mocked function.
 	 */
 	function clearAllMocks(): typeof jest;
-	/**
-	 * Use the automatic mocking system to generate a mocked version of the given module.
-	 */
-	// tslint:disable-next-line: no-unnecessary-generics
-	function createMockFromModule<T>(moduleName: string): T;
 	/**
 	 * Resets the state of all mocks.
 	 * Equivalent to calling .mockReset() on every mocked function.
@@ -143,28 +130,15 @@ export declare namespace jest {
 	 */
 	function getRealSystemTime(): number;
 	/**
-	 * Indicates that the module system should never return a mocked version
-	 * of the specified module, including all of the specificied module's dependencies.
-	 */
-	function deepUnmock(moduleName: string): typeof jest;
-	/**
-	 * Disables automatic mocking in the module loader.
-	 */
-	function disableAutomock(): typeof jest;
-	/**
 	 * Mocks a module with an auto-mocked version when it is being required.
 	 */
 	// tslint:disable-next-line no-unnecessary-generics
-	function doMock<T = unknown>(moduleName: string, factory?: () => T, options?: MockOptions): typeof jest;
+	function doMock<T = unknown>(moduleScript: ModuleScript, factory?: () => T): typeof jest;
 	/**
 	 * Indicates that the module system should never return a mocked version
 	 * of the specified module from require() (e.g. that it should always return the real module).
 	 */
-	function dontMock(moduleName: string): typeof jest;
-	/**
-	 * Enables automatic mocking in the module loader.
-	 */
-	function enableAutomock(): typeof jest;
+	function dontMock(moduleScript: ModuleScript): typeof jest;
 	/**
 	 * Creates a mock function. Optionally takes a mock implementation.
 	 */
@@ -174,12 +148,6 @@ export declare namespace jest {
 	 */
 	function fn<T, Y extends any[]>(implementation?: (...args: Y) => T): Mock<T, Y>;
 	/**
-	 * (renamed to `createMockFromModule` in Jest 26.0.0+)
-	 * Use the automatic mocking system to generate a mocked version of the given module.
-	 */
-	// tslint:disable-next-line: no-unnecessary-generics
-	function genMockFromModule<T>(moduleName: string): T;
-	/**
 	 * Returns whether the given function is a mock function.
 	 */
 	function isMockFunction(fn: any): fn is Mock;
@@ -187,38 +155,14 @@ export declare namespace jest {
 	 * Mocks a module with an auto-mocked version when it is being required.
 	 */
 	// tslint:disable-next-line no-unnecessary-generics
-	function mock<T = unknown>(moduleName: string, factory?: () => T, options?: MockOptions): typeof jest;
+	function mock<T = unknown>(moduleScript: ModuleScript, factory?: () => T): typeof jest;
 
-	/**
-	 * The mocked test helper provides typings on your mocked modules and even
-	 * their deep methods, based on the typing of its source. It makes use of
-	 * the latest TypeScript feature, so you even have argument types
-	 * completion in the IDE (as opposed to jest.MockInstance).
-	 *
-	 * Note: while it needs to be a function so that input type is changed, the helper itself does nothing else than returning the given input value.
-	 */
-	function mocked<T>(item: T, deep?: false): MaybeMocked<T>;
-	/**
-	 * The mocked test helper provides typings on your mocked modules and even
-	 * their deep methods, based on the typing of its source. It makes use of
-	 * the latest TypeScript feature, so you even have argument types
-	 * completion in the IDE (as opposed to jest.MockInstance).
-	 *
-	 * Note: while it needs to be a function so that input type is changed, the helper itself does nothing else than returning the given input value.
-	 */
-	function mocked<T>(item: T, deep: true): MaybeMockedDeep<T>;
 	/**
 	 * Returns the actual module instead of a mock, bypassing all checks on
 	 * whether the module should receive a mock implementation or not.
 	 */
 	// tslint:disable-next-line: no-unnecessary-generics
-	function requireActual<TModule extends {} = any>(moduleName: string): TModule;
-	/**
-	 * Returns a mock module instead of the actual module, bypassing all checks
-	 * on whether the module should be required normally or not.
-	 */
-	// tslint:disable-next-line: no-unnecessary-generics
-	function requireMock<TModule extends {} = any>(moduleName: string): TModule;
+	function requireActual<TModule extends {} = any>(moduleScript: ModuleScript): TModule;
 	/**
 	 * Resets the module registry - the cache of all required modules. This is
 	 * useful to isolate modules where local state might conflict between tests.
@@ -230,24 +174,19 @@ export declare namespace jest {
 	 */
 	function isolateModules(fn: () => void): typeof jest;
 	/**
-	 * Runs failed tests n-times until they pass or until the max number of retries is exhausted.
-	 * This only works with jest-circus!
-	 */
-	function retryTimes(numRetries: number): typeof jest;
-	/**
-	 * Exhausts tasks queued by setImmediate().
-	 * > Note: This function is only available when using modern fake timers
-	 * > implementation
-	 */
-	function runAllImmediates(): typeof jest;
-	/**
 	 * Exhausts the micro-task queue (usually interfaced in node via process.nextTick).
 	 */
 	function runAllTicks(): typeof jest;
 	/**
-	 * Exhausts both the macro-task queue (i.e., all tasks queued by setTimeout(),
-	 * setInterval(), and setImmediate()) and the micro-task queue (usually interfaced
-	 * in node via process.nextTick).
+	 * Exhausts the macro-task queue (i.e., all tasks queued by `delay`).
+	 *
+	 * When this API is called, all pending macro-tasks will be executed. If those
+	 * tasks themselves schedule new tasks, those will be continually exhausted until
+	 * there are no more tasks remaining in the queue.
+	 *
+	 * This is often useful for synchronously executing `delay`s during a test in
+	 * order to synchronously assert about some behavior that would only happen after
+	 * the `delay` callbacks executed. See the Timer mocks doc for more information.
 	 */
 	function runAllTimers(): typeof jest;
 	/**
@@ -274,12 +213,7 @@ export declare namespace jest {
 	 * for the specified module.
 	 */
 	// tslint:disable-next-line: no-unnecessary-generics
-	function setMock<T>(moduleName: string, moduleExports: T): typeof jest;
-	/**
-	 * Set the default timeout interval for tests and before/after hooks in milliseconds.
-	 * Note: The default timeout interval is 5 seconds if this method is not called.
-	 */
-	function setTimeout(timeout: number): typeof jest;
+	function setMock<T>(moduleScript: ModuleScript, moduleExports: T): typeof jest;
 	/**
 	 * Creates a mock function similar to jest.fn but also tracks calls to `object[methodName]`
 	 *
@@ -300,6 +234,8 @@ export declare namespace jest {
 	 *   spy.mockReset();
 	 *   spy.mockRestore();
 	 * });
+	 *
+	 * @deprecated Not implemented yet
 	 */
 	function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(
 		object: T,
@@ -327,19 +263,26 @@ export declare namespace jest {
 	 * Indicates that the module system should never return a mocked version of
 	 * the specified module from require() (e.g. that it should always return the real module).
 	 */
-	function unmock(moduleName: string): typeof jest;
+	function unmock(moduleScript: ModuleScript): typeof jest;
 	/**
-	 * Instructs Jest to use fake versions of the standard timer functions.
+	 * Instructs Jest Lua to use fake versions of the standard Lua and Roblox timer
+	 * functions (`delay`, `tick`, `os.time`, `os.clock`, `task.delay` as well as `DateTime`).
 	 */
 	function useFakeTimers(implementation?: "modern" | "legacy"): typeof jest;
 	/**
 	 * Instructs Jest to use the real versions of the standard timer functions.
 	 */
 	function useRealTimers(): typeof jest;
-
-	interface MockOptions {
-		virtual?: boolean | undefined;
-	}
+	/**
+	 * Sets the frame time, in milliseconds, by which all advance timer methods process timers.
+	 * `frameTimeMs` must be a value greater than or equal to `0`; by default, `frameTimeMs`
+	 * is set to `0` (i.e. continuous time).
+	 */
+	function setEngineFrameTime(frameTimeMs: number): void;
+	/**
+	 * Gets the frame time by which timers are processed.
+	 */
+	function getEngineFrameTime(): number;
 
 	type MockableFunction = (...args: any[]) => any;
 	type MethodKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? K : never }[keyof T];
@@ -387,7 +330,9 @@ export declare namespace jest {
 		fail(error?: string | { message: string }): any;
 	}
 
-	type ProvidesCallback = ((cb: DoneCallback) => void | undefined) | (() => Promise<unknown>);
+	type ProvidesCallback =
+		| ((context: Record<string, any>, cb: DoneCallback) => void | undefined)
+		| (() => Promise<unknown>);
 	type ProvidesHookCallback = (() => any) | ProvidesCallback;
 
 	type Lifecycle = (fn: ProvidesHookCallback, timeout?: number) => any;
@@ -497,7 +442,7 @@ export declare namespace jest {
 	type EqualityTester = (a: any, b: any) => boolean | undefined;
 
 	interface MatcherUtils {
-		readonly isNot: boolean;
+		readonly isNever: boolean;
 		readonly dontThrow: () => void;
 		readonly promise: string;
 		readonly assertionCalls: number;
@@ -626,6 +571,23 @@ export declare namespace jest {
 		 */
 		any(this: void, classType: any): any;
 		/**
+		 * Matches only `nil`. You can use it inside `toEqual`, `toMatchObject`,
+		 * `toBeCalledWith`, or similar matchers instead of a literal value. For example,
+		 * if you want to check that a value is left undefined in a table:
+		 *
+		 * @example
+		 *
+		 * test('mock calls its argument with a nil argument', () => {
+		 *   const expected = {
+		 *     foo: "bar",
+		 *     baz: expect.nothing(),
+		 *   };
+		 *   mock();
+		 *   expect({ foo = "bar" }).toMatchObject({ expected });
+		 * });
+		 */
+		nothing(this: void): any;
+		/**
 		 * Matches any array made up entirely of elements in the provided array.
 		 * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
 		 *
@@ -663,7 +625,7 @@ export declare namespace jest {
 		// tslint:disable-next-line: no-unnecessary-generics
 		objectContaining<E = {}>(this: void, obj: E): any;
 		/**
-		 * Matches any string that contains the exact provided string
+		 * Matches any string that contains the provided Lua string pattern
 		 */
 		stringMatching(this: void, str: string): any;
 		/**
@@ -671,7 +633,7 @@ export declare namespace jest {
 		 */
 		stringContaining(this: void, str: string): any;
 
-		not: InverseAsymmetricMatchers;
+		never: InverseAsymmetricMatchers;
 
 		setState(this: void, state: object): void;
 		getState(this: void): MatcherState & Record<string, any>;
@@ -692,7 +654,7 @@ export declare namespace jest {
 		rejects: AndNot<TPromise>;
 	} & AndNot<TNonPromise>;
 	type AndNot<T> = T & {
-		not: T;
+		never: T;
 	};
 
 	// should be R extends void|Promise<void> but getting dtslint error
@@ -761,7 +723,10 @@ export declare namespace jest {
 		 */
 		toBeCloseTo(this: void, expected: number, numDigits?: number): R;
 		/**
-		 * Ensure that a variable is not undefined.
+		 * Ensure that a variable is not `nil`.
+		 *
+		 * Note: `.toBeDefined` is functionally identical to `.never.toBeNil()` and
+		 * usage of the latter is preferred.
 		 */
 		toBeDefined(this: void): R;
 		/**
@@ -770,13 +735,13 @@ export declare namespace jest {
 		 */
 		toBeFalsy(this: void): R;
 		/**
-		 * For comparing floating point or big integer numbers.
+		 * For comparing floating point numbers.
 		 */
-		toBeGreaterThan(this: void, expected: number | bigint): R;
+		toBeGreaterThan(this: void, expected: number): R;
 		/**
-		 * For comparing floating point or big integer numbers.
+		 * For comparing floating point numbers.
 		 */
-		toBeGreaterThanOrEqual(this: void, expected: number | bigint): R;
+		toBeGreaterThanOrEqual(this: void, expected: number): R;
 		/**
 		 * Ensure that an object is an instance of a class.
 		 * This matcher uses `instanceof` underneath.
@@ -787,13 +752,13 @@ export declare namespace jest {
 		// tslint:disable-next-line: no-unnecessary-generics
 		toBeInstanceOf<E = any>(this: void, expected: E): R;
 		/**
-		 * For comparing floating point or big integer numbers.
+		 * For comparing floating point numbers.
 		 */
-		toBeLessThan(this: void, expected: number | bigint): R;
+		toBeLessThan(this: void, expected: number): R;
 		/**
-		 * For comparing floating point or big integer numbers.
+		 * For comparing floating point numbers.
 		 */
-		toBeLessThanOrEqual(this: void, expected: number | bigint): R;
+		toBeLessThanOrEqual(this: void, expected: number): R;
 		/**
 		 * This is the same as `.toBe(null)` but the error messages are a bit nicer.
 		 * So use `.toBeNull()` when you want to check that something is null.
@@ -807,8 +772,15 @@ export declare namespace jest {
 		toBeTruthy(this: void): R;
 		/**
 		 * Used to check that a variable is undefined.
+		 *
+		 * Note: `.toBeUndefined` is functionally identical to `.toBeNil()` and usage
+		 * of the latter is preferred.
 		 */
 		toBeUndefined(this: void): R;
+		/**
+		 * Used to check that a variable is undefined.
+		 */
+		toBeNil(this: void): R;
 		/**
 		 * Used to check that a variable is NaN.
 		 */
@@ -886,8 +858,12 @@ export declare namespace jest {
 		// tslint:disable-next-line: no-unnecessary-generics
 		toHaveLastReturnedWith<E = any>(this: void, expected: E): R;
 		/**
-		 * Used to check that an object has a `.length` property
-		 * and it is set to a certain numeric value.
+		 * Use `.toHaveLength` to check that an (array-like) table or string has a certain length.
+		 * It calls the `#` operator and since `#` is only well defined for non-sparse array-like
+		 * tables and strings it will return 0 for tables with key-value pairs.
+		 * It checks the `.length` property of the table instead if it has one.
+		 *
+		 * This is especially useful for checking arrays or strings size.
 		 */
 		toHaveLength(this: void, expected: number): R;
 		/**
@@ -933,7 +909,7 @@ export declare namespace jest {
 		// tslint:disable-next-line: no-unnecessary-generics
 		toHaveReturnedWith<E = any>(this: void, expected: E): R;
 		/**
-		 * Check that a string matches a regular expression.
+		 * Check that a string matches a Lua string pattern or regular expression.
 		 */
 		toMatch(this: void, expected: string): R;
 		/**
@@ -958,6 +934,15 @@ export declare namespace jest {
 		 */
 		// tslint:disable-next-line: no-unnecessary-generics
 		toMatchObject<E extends {} | any[]>(this: void, expected: E): R;
+		/**
+		 * Use `.toMatchInstance` to check that a Roblox Instance and its children matches
+		 * all the properties defined in an expected table.
+		 *
+		 * If a ClassName property is not in the table, the expected table will match against
+		 * any class. To check that the received Instance is of a specific type, pass in a
+		 * ClassName property.
+		 */
+		toMatchInstance<E extends {}>(this: void, expected: E): R;
 		/**
 		 * This ensures that a value matches the most recent snapshot with property matchers.
 		 * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
@@ -1011,6 +996,8 @@ export declare namespace jest {
 		 *
 		 * Optionally, you can provide a type for the expected value via a generic.
 		 * This is particularly useful for ensuring expected objects have the right structure.
+		 *
+		 * Lua tables that follow metatable inheritance patterns will also be checked for type equality.
 		 */
 		// tslint:disable-next-line: no-unnecessary-generics
 		toStrictEqual<E = any>(this: void, expected: E): R;
@@ -1082,8 +1069,8 @@ export declare namespace jest {
 		ExtendedExpectFunction<TMatchers>;
 
 	// FIXME: Extending 'JestMatchersShape<any>' here throws a type error in 'Omit' below
-	type NonPromiseMatchers<T extends JestMatchersShape> = Omit<T, "resolves" | "rejects" | "not">;
-	type PromiseMatchers<T extends JestMatchersShape> = Omit<T["resolves"], "not">;
+	type NonPromiseMatchers<T extends JestMatchersShape> = Omit<T, "resolves" | "rejects" | "never">;
+	type PromiseMatchers<T extends JestMatchersShape> = Omit<T["resolves"], "never">;
 
 	interface Constructable {
 		new (...args: any[]): any;
