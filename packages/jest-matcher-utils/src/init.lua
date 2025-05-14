@@ -1,1 +1,1 @@
-return require(script.Parent.Parent.Parent:WaitForChild("rbxts-js").JestMatcherUtils)
+return require(script.Parent.Parent.Parent:WaitForChild("@rbxts-js").JestMatcherUtils)

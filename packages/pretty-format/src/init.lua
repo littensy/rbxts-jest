@@ -1,1 +1,1 @@
-return require(script.Parent.Parent.Parent:WaitForChild("rbxts-js").PrettyFormat)
+return require(script.Parent.Parent.Parent:WaitForChild("@rbxts-js").PrettyFormat)

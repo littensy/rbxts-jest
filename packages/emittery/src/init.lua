@@ -1,1 +1,1 @@
-return require(script.Parent.Parent.Parent:WaitForChild("rbxts-js").Emittery)
+return require(script.Parent.Parent.Parent:WaitForChild("@rbxts-js").Emittery)
