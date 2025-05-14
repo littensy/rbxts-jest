@@ -1,0 +1,13 @@
+{
+	"name": "rbxts-jest",
+	"globIgnorePaths": ["packages/*/node_modules"],
+	"tree": {
+		"$className": "Folder",
+		"@rbxts": {
+			"$path": "packages"
+		},
+		"@rbxts-js": {
+			"$path": "node_modules/@rbxts-js"
+		}
+	}
+}

@@ -1,32 +1,29 @@
 {
 	"name": "@rbxts/pretty-format",
-	"version": "0.2.0-alpha.2",
+	"version": "3.13.2-alpha.1",
 	"description": "PrettyFormat bindings for Roblox",
 	"scripts": {
 		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."
-	},
-	"keywords": [
-		"roblox",
-		"typescript",
-		"roblox-ts"
-	],
-	"author": "littensy",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/littensy/rbxts-jest"
-	},
-	"bugs": {
-		"url": "https://github.com/littensy/rbxts-jest/issues"
-	},
-	"publishConfig": {
-		"access": "public"
 	},
 	"main": "src/init.lua",
 	"types": "src/index.d.ts",
 	"files": [
 		"src",
 		"default.project.json"
+	],
+	"author": "littensy",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/littensy/rbxts-jest.git"
+	},
+	"bugs": {
+		"url": "https://github.com/littensy/rbxts-jest/issues"
+	},
+	"keywords": [
+		"roblox",
+		"typescript",
+		"roblox-ts"
 	],
 	"dependencies": {
 		"@rbxts-js/pretty-format": "^3.13.2-ts.3"

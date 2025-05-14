@@ -482,7 +482,7 @@ export declare namespace jest {
 
 	interface Describe {
 		// tslint:disable-next-line ban-types
-		(name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
+		(name: number | string | Callback | FunctionLike, fn: EmptyFunction): void;
 		/** Only runs the tests inside this `describe` for the current file */
 		only: Describe;
 		/** Skips running the tests inside this `describe` for the current file */
