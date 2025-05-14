@@ -1,7 +1,7 @@
 {
-	"name": "@rbxts/jest-globals",
+	"name": "@rbxts/emittery",
 	"version": "0.2.0-alpha.1",
-	"description": "JestGlobal bindings for Roblox",
+	"description": "Emittery v0.11.0 bindings for Roblox.",
 	"scripts": {
 		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."
 	},
@@ -29,8 +29,6 @@
 		"default.project.json"
 	],
 	"dependencies": {
-		"@rbxts-js/jest-globals": "^3.13.2-ts.3",
-		"@rbxts/jest-matcher-utils": "workspace:*",
-		"@rbxts/pretty-format": "workspace:*"
+		"@rbxts-js/emittery": "^3.13.2-ts.3"
 	}
 }

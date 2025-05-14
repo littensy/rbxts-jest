@@ -82,6 +82,24 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
 
 export declare namespace jest {
 	/**
+	 * `jest.globalEnv` represents the function environment table of the
+	 * current test.
+	 *
+	 * You can use it with `jest.spyOn()` in place of an object, to mock the
+	 * implementation of a function such as `print()` which lives in the
+	 * environment table.
+	 *
+	 * You can also index into `globalEnv` to represent global libraries, such
+	 * as `jest.globalEnv.math`, which allows you to mock the implementation of
+	 * library functions such as `math.random()`.
+	 *
+	 * Finally, functions from the original function environment are available
+	 *  as members of `globalEnv`, for example, the original implementation of
+	 * `print()` (bypassing any current mocks) can be called via
+	 * `jest.globalEnv.print()`.
+	 */
+	const globalEnv: { [name: string]: any };
+	/**
 	 * Clears the mock.calls and mock.instances properties of all mocks.
 	 * Equivalent to calling .mockClear() on every mocked function.
 	 */
@@ -152,9 +170,43 @@ export declare namespace jest {
 	 */
 	function isMockFunction(fn: any): fn is Mock;
 	/**
-	 * Mocks a module with an auto-mocked version when it is being required.
+	 * Mocks a module with an mocked version when it is being required. The
+	 * second argument must be used to specify the value of the mocked module.
+	 *
+	 * Modules that are mocked with `jest.mock` are mocked only for the file
+	 * that calls `jest.mock`. Another file that imports the module will get the
+	 * original implementation even if it runs after the test file that mocks
+	 * the module.
+	 *
+	 * Returns the jest object for chaining.
+	 *
+	 * @example
+	 * ```lua
+	 * -- mockedModule.lua
+	 * return {}
+	 * ```
+	 *
+	 * ```lua
+	 * -- __tests__/testMockedModule.spec.lua
+	 * beforeEach(function()
+	 * 	jest.resetModules()
+	 * 	jest.mock(Workspace.mockedModule, function()
+	 * 		return {
+	 * 			default = jest.fn(function() return 42 end),
+	 * 			foo = jest.fn(function() return 43 end)
+	 * 		}
+	 * 	end)
+	 * end)
+	 *
+	 * local mockedModule
+	 *
+	 * it("mockedModule should be mocked", function()
+	 * 	mockedModule = require(Workspace.mockedModule)
+	 * 	expect(mockedModule.default()).toBe(42)
+	 * 	expect(mockedModule.foo()).toBe(43)
+	 * end)
+	 * ```
 	 */
-	// tslint:disable-next-line no-unnecessary-generics
 	function mock<T = unknown>(moduleScript: ModuleScript, factory?: () => T): typeof jest;
 
 	/**
@@ -234,19 +286,18 @@ export declare namespace jest {
 	 *   spy.mockReset();
 	 *   spy.mockRestore();
 	 * });
-	 *
-	 * @deprecated Not implemented yet
 	 */
-	function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(
-		object: T,
-		method: M,
-		accessType: "get",
-	): SpyInstance<Required<T>[M], []>;
-	function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(
-		object: T,
-		method: M,
-		accessType: "set",
-	): SpyInstance<void, [Required<T>[M]]>;
+	// The jest.spyOn(object, methodName, accessType?) variant is not currently supported in jest-roblox.
+	// function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(
+	// 	object: T,
+	// 	method: M,
+	// 	accessType: "get",
+	// ): SpyInstance<Required<T>[M], []>;
+	// function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(
+	// 	object: T,
+	// 	method: M,
+	// 	accessType: "set",
+	// ): SpyInstance<void, [Required<T>[M]]>;
 	function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
 		object: T,
 		method: M,

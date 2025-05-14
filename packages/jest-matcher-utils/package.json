@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/jest-matcher-utils",
-	"version": "0.1.0",
+	"version": "0.2.0-alpha.1",
 	"description": "JestMatcherUtils bindings for Roblox",
 	"scripts": {
 		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."
@@ -26,11 +26,10 @@
 	"types": "src/index.d.ts",
 	"files": [
 		"src",
-		"default.project.json",
-		"README.md"
+		"default.project.json"
 	],
 	"dependencies": {
-		"@rbxts/jest-vendor": "workspace:*",
+		"@rbxts-js/jest-matcher-utils": "^3.13.2-ts.3",
 		"@rbxts/pretty-format": "workspace:*"
 	}
 }

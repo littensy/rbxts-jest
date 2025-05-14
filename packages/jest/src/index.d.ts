@@ -1,4 +1,4 @@
-import Emittery from "./emittery";
+import Emittery from "@rbxts/emittery";
 import { Argv, GlobalConfig, InitialOptions, Path, ProjectConfig } from "./config";
 
 // Types
