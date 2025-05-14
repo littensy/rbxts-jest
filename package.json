@@ -1,5 +1,5 @@
 {
-	"name": "@rbxts/jest",
+	"private": true,
 	"workspaces": [
 		"packages/*"
 	],
