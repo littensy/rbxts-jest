@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/jest-globals",
-	"version": "3.13.2-alpha.1",
+	"version": "3.13.3-alpha.1",
 	"description": "JestGlobal bindings for Roblox",
 	"scripts": {
 		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."
@@ -26,7 +26,7 @@
 		"roblox-ts"
 	],
 	"dependencies": {
-		"@rbxts-js/jest-globals": "^3.13.2-ts.3",
+		"@rbxts-js/jest-globals": "^3.13.3-ts.2",
 		"@rbxts/jest-matcher-utils": "workspace:*",
 		"@rbxts/pretty-format": "workspace:*"
 	}

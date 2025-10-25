@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/pretty-format",
-	"version": "3.13.2-alpha.1",
+	"version": "3.13.3-alpha.1",
 	"description": "PrettyFormat bindings for Roblox",
 	"scripts": {
 		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."
@@ -26,6 +26,6 @@
 		"roblox-ts"
 	],
 	"dependencies": {
-		"@rbxts-js/pretty-format": "^3.13.2-ts.3"
+		"@rbxts-js/pretty-format": "^3.13.3-ts.2"
 	}
 }
