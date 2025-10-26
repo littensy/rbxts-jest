@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/jest",
-	"version": "3.13.3-alpha.1",
+	"version": "3.13.3-alpha.2",
 	"description": "Delightful testing for Roblox TypeScript",
 	"scripts": {
 		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."
@@ -26,7 +26,7 @@
 		"roblox-ts"
 	],
 	"dependencies": {
-		"@rbxts-js/jest": "^3.13.3-ts.2",
+		"@rbxts-js/jest": "^3.13.3-ts.3",
 		"@rbxts/emittery": "workspace:*",
 		"@rbxts/jest-globals": "workspace:*",
 		"@rbxts/pretty-format": "workspace:*"
