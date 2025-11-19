@@ -209,6 +209,7 @@ export type ProjectConfig = {
 	filter?: Path;
 	id: string;
 	injectGlobals: boolean;
+	mockDataModel: boolean;
 	resetMocks: boolean;
 	resetModules: boolean;
 	restoreMocks: boolean;
