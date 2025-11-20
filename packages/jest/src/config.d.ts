@@ -6,6 +6,11 @@ export type Glob = string;
 
 type Timers = "real" | "fake" | "modern" | "legacy";
 
+export interface ReporterConfig {
+	reporter: string | ModuleScript;
+	options?: Record<string, any>;
+}
+
 export type FakeableAPI =
 	| "Date"
 	| "hrtime"
@@ -99,6 +104,42 @@ export type ConfigGlobals = {
 	[key: string]: any;
 };
 
+export type DefaultOptions = {
+	automock: boolean;
+	bail: number;
+	ci: boolean;
+	clearMocks: boolean;
+	expand: boolean;
+	globals: ConfigGlobals;
+	injectGlobals: boolean;
+	listTests: boolean;
+	maxConcurrency: number;
+	maxWorkers: number | string;
+	mockDataModel: boolean;
+	noStackTrace: boolean;
+	oldFunctionSpying: boolean;
+	passWithNoTests: boolean;
+	resetMocks: boolean;
+	resetModules: boolean;
+	restoreMocks: boolean;
+	roots: Array<string>;
+	runTestsByPath: boolean;
+	runner: string;
+	setupFiles: Array<ModuleScript>;
+	setupFilesAfterEnv: Array<ModuleScript>;
+	skipFilter: boolean;
+	slowTestThreshold: number;
+	snapshotSerializers: Array<string>;
+	testEnvironment: string;
+	testEnvironmentOptions: Record<string, any>;
+	testFailureExitCode: string | number;
+	testLocationInResults: boolean;
+	testMatch: Array<string>;
+	testPathIgnorePatterns: Array<string>;
+	testRegex: Array<string>;
+	timers: Timers;
+};
+
 export type DisplayName = {
 	name: string;
 	color: string;
@@ -119,13 +160,16 @@ export type InitialOptions = Partial<{
 	json: boolean;
 	globals: ConfigGlobals;
 	injectGlobals: boolean;
+	reporters: Array<string | ModuleScript | ReporterConfig>;
 	listTests: boolean;
 	maxConcurrency: number;
 	maxWorkers: number | string;
 	moduleLoader: Path;
 	id: string;
+	mockDataModel: boolean;
 	noStackTrace: boolean;
 	outputFile: Path;
+	oldFunctionSpying: boolean;
 	passWithNoTests: boolean;
 	/**
 	 * @deprecated Use `transformIgnorePatterns` options instead.
@@ -188,6 +232,7 @@ export type GlobalConfig = {
 	outputFile?: Path;
 	passWithNoTests: boolean;
 	projects: Array<Instance>;
+	reporters: Array<string | ModuleScript | ReporterConfig>;
 	runTestsByPath: boolean;
 	rootDir: Instance;
 	silent?: boolean;
@@ -210,6 +255,7 @@ export type ProjectConfig = {
 	id: string;
 	injectGlobals: boolean;
 	mockDataModel: boolean;
+	oldFunctionSpying: boolean;
 	resetMocks: boolean;
 	resetModules: boolean;
 	restoreMocks: boolean;
@@ -257,6 +303,7 @@ export type Argv = Partial<{
 	outputFile: string;
 	preset: string | undefined;
 	projects: Array<string>;
+	reporters: Array<string | ModuleScript | ReporterConfig>;
 	resetMocks: boolean;
 	resetModules: boolean;
 	restoreMocks: boolean;
