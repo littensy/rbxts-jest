@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/jest-matcher-utils",
-	"version": "3.13.3-alpha.2",
+	"version": "3.13.3-ts.1",
 	"description": "JestMatcherUtils bindings for Roblox",
 	"scripts": {
 		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."

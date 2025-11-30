@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/jest",
-	"version": "3.13.3-alpha.2",
+	"version": "3.13.3-ts.1",
 	"description": "Delightful testing for Roblox TypeScript",
 	"scripts": {
 		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."

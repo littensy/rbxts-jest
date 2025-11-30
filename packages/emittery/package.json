@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/emittery",
-	"version": "3.13.3-alpha.2",
+	"version": "3.13.3-ts.1",
 	"description": "Emittery v0.11.0 bindings for Roblox.",
 	"scripts": {
 		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."
