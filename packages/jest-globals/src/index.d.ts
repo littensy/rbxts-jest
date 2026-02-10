@@ -639,6 +639,12 @@ export declare namespace jest {
 		 */
 		nothing(this: void): any;
 		/**
+		 * Matches anything that behaves like a function, including callable
+		 * tables and callable userdata. Prefer over `expect.any("function")`
+		 * unless you care about the underlying data type.
+		 */
+		callable(this: void): any;
+		/**
 		 * Matches any array made up entirely of elements in the provided array.
 		 * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
 		 *
