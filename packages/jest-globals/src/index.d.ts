@@ -567,6 +567,11 @@ export declare namespace jest {
 		 * `expect.stringContaining`.
 		 */
 		stringContaining(this: void, str: string): AsymmetricMatcher;
+		/**
+		 * `expect.never.callable()` matches anything that is not callable.
+		 * It is the inverse of `expect.callable`.
+		 */
+		callable(this: void): AsymmetricMatcher;
 	}
 	interface MatcherState {
 		assertionCalls: number;
@@ -638,6 +643,12 @@ export declare namespace jest {
 		 * });
 		 */
 		nothing(this: void): AsymmetricMatcher;
+		/**
+		 * Matches anything that behaves like a function, including callable
+		 * tables and callable userdata. Prefer over `expect.any("function")`
+		 * unless you care about the underlying data type.
+		 */
+		callable(this: void): AsymmetricMatcher;
 		/**
 		 * Matches any array made up entirely of elements in the provided array.
 		 * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
