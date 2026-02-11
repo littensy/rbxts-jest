@@ -157,14 +157,32 @@ export declare namespace jest {
 	 * of the specified module from require() (e.g. that it should always return the real module).
 	 */
 	function dontMock(moduleScript: ModuleScript): typeof jest;
-	/**
-	 * Creates a mock function. Optionally takes a mock implementation.
-	 */
-	function fn(): Mock;
-	/**
-	 * Creates a mock function. Optionally takes a mock implementation.
-	 */
-	function fn<T, Y extends any[]>(implementation?: (...args: Y) => T): Mock<T, Y>;
+    /**
+     * Creates a mock function. Optionally takes a mock implementation.
+     *
+     * Returns a LuaTuple of [mock, mockFn]. The first value is the mock
+     * object (callable table). The second is a forwarding function for
+     * cases where a real function is required.
+     *
+     * @example
+     * const [mock, mockFn] = jest.fn()
+     * mockFn()
+     * expect(mock).toHaveBeenCalled()
+     */
+    function fn(): LuaTuple<[Mock, (...args: any[]) => any]>;
+    /**
+     * Creates a mock function. Optionally takes a mock implementation.
+     *
+     * Returns a LuaTuple of [mock, mockFn]. The first value is the mock
+     * object (callable table). The second is a forwarding function for
+     * cases where a real function is required.
+     *
+     * @example
+     * const [mock, mockFn] = jest.fn((x: number) => x + 1)
+     * mockFn(1)
+     * expect(mock).toHaveReturnedWith(2)
+     */
+    function fn<T, Y extends any[]>(implementation?: (...args: Y) => T): LuaTuple<[Mock<T, Y>, (...args: Y) => T]>;
 	/**
 	 * Returns whether the given function is a mock function.
 	 */
