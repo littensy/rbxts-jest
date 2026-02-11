@@ -1,0 +1,32 @@
+{
+	"name": "@rbxts/jest-diff",
+	"version": "3.13.3-ts.1",
+	"description": "JestDiff bindings for Roblox",
+	"scripts": {
+		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."
+	},
+	"main": "src/init.lua",
+	"types": "src/index.d.ts",
+	"files": [
+		"src",
+		"default.project.json"
+	],
+	"author": "littensy",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/littensy/rbxts-jest.git"
+	},
+	"bugs": {
+		"url": "https://github.com/littensy/rbxts-jest/issues"
+	},
+	"keywords": [
+		"roblox",
+		"typescript",
+		"roblox-ts"
+	],
+	"dependencies": {
+		"@rbxts-js/jest-diff": "^3.13.3-ts.3",
+		"@rbxts/pretty-format": "workspace:*"
+	}
+}
