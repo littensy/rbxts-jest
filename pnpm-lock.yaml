@@ -69,6 +69,15 @@ importers:
         specifier: ^3.13.3-ts.3
         version: 3.13.3-ts.3
 
+  packages/jest-diff:
+    dependencies:
+      '@rbxts-js/jest-diff':
+        specifier: ^3.13.3-ts.3
+        version: 3.13.3-ts.3
+      '@rbxts/pretty-format':
+        specifier: workspace:*
+        version: link:../pretty-format
+
   packages/jest-globals:
     dependencies:
       '@rbxts-js/jest-globals':
