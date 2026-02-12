@@ -36,9 +36,9 @@ export type DiffOptions = {
 	compareKeys?: CompareKeys;
 };
 
-export const EXPECTED_COLOR: string;
-export const RECEIVED_COLOR: string;
-export const INVERTED_COLOR: string;
+export const EXPECTED_COLOR: (value: string) => string;
+export const RECEIVED_COLOR: (value: string) => string;
+export const INVERTED_COLOR: (value: string) => string;
 export const BOLD_WEIGHT: string;
 export const DIM_COLOR: string;
 
