@@ -186,7 +186,7 @@ export declare namespace jest {
 	/**
 	 * Returns whether the given function is a mock function.
 	 */
-	function isMockFunction(fn: any): fn is Mock;
+	function isMockFunction(this: typeof jest, fn: any): fn is Mock;
 	/**
 	 * Mocks a module with an mocked version when it is being required. The
 	 * second argument must be used to specify the value of the mocked module.
