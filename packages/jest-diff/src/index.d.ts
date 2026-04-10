@@ -35,11 +35,7 @@ export type DiffOptions = {
 // Functions
 export function diff(a: unknown, b: unknown, options?: DiffOptions): string | undefined;
 export function diffLinesRaw(aLines: Array<string>, bLines: Array<string>): Array<Diff>;
-export function diffLinesUnified(
-	aLines: Array<string>,
-	bLines: Array<string>,
-	options?: DiffOptions,
-): string;
+export function diffLinesUnified(aLines: Array<string>, bLines: Array<string>, options?: DiffOptions): string;
 export function diffLinesUnified2(
 	aDisplay: Array<string>,
 	bDisplay: Array<string>,

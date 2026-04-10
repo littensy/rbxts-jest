@@ -99,10 +99,7 @@ export interface Reporter<T = unknown> {
 	 *
 	 * @param value - The value to record, or a function to compute it.
 	 */
-	report(
-		this: void,
-		value: ((previousValue: T | undefined, timeDelta: number | undefined) => T) | T,
-	): void;
+	report(this: void, value: ((previousValue: T | undefined, timeDelta: number | undefined) => T) | T): void;
 	/**
 	 * Opens a new section. Values reported inside are grouped together and
 	 * reduced on {@link Reporter.finish}. Sections can nest. Must be closed with
@@ -141,10 +138,7 @@ export namespace HeartbeatReporter {
 	 * @param collectorFunc - Reduces the collected delta times to one value.
 	 * @returns A new {@link Reporter} instance.
 	 */
-	function initializeHeartbeatReporter(
-		metricName: string,
-		collectorFunc: CollectorFn<number>,
-	): Reporter<number>;
+	function initializeHeartbeatReporter(metricName: string, collectorFunc: CollectorFn<number>): Reporter<number>;
 }
 
 /**

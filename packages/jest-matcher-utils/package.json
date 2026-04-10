@@ -26,7 +26,7 @@
 		"roblox-ts"
 	],
 	"dependencies": {
-		"@rbxts-js/jest-matcher-utils": "^3.16.0-ts.1",
+		"@rbxts-js/jest-matcher-utils": "3.16.0-ts.1",
 		"@rbxts/pretty-format": "workspace:*"
 	}
 }
