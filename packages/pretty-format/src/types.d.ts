@@ -45,8 +45,10 @@ export type Options = {
 	min: boolean;
 	plugins: Plugins;
 	printBasicPrototype: boolean;
+	printInstanceTags: boolean;
 	printFunctionName: boolean;
 	theme: Theme;
+	useStyledProperties: boolean;
 };
 
 export interface PrettyFormatOptions {
@@ -60,8 +62,10 @@ export interface PrettyFormatOptions {
 	min?: boolean;
 	plugins?: Plugins;
 	printBasicPrototype?: boolean;
+	printInstanceTags?: boolean;
 	printFunctionName?: boolean;
 	theme?: ThemeReceived;
+	useStyledProperties?: boolean;
 }
 
 export type OptionsReceived = PrettyFormatOptions;
@@ -77,9 +81,11 @@ export type Config = {
 	min: boolean;
 	plugins: Plugins;
 	printBasicPrototype: boolean;
+	printInstanceTags: boolean;
 	printFunctionName: boolean;
 	spacingInner: string;
 	spacingOuter: string;
+	useStyledProperties: boolean;
 };
 
 export type Printer = (
