@@ -151,38 +151,38 @@ export declare namespace jest {
 	 * Mocks a module with an auto-mocked version when it is being required.
 	 */
 	// tslint:disable-next-line no-unnecessary-generics
-	function doMock<T = unknown>(moduleScript: ModuleScript, factory?: () => T): typeof jest;
+	function doMock<T = unknown>(moduleScript: ModuleScript | string, factory?: () => T): typeof jest;
 	/**
 	 * Indicates that the module system should never return a mocked version
 	 * of the specified module from require() (e.g. that it should always return the real module).
 	 */
-	function dontMock(moduleScript: ModuleScript): typeof jest;
-    /**
-     * Creates a mock function. Optionally takes a mock implementation.
-     *
-     * Returns a LuaTuple of [mock, mockFn]. The first value is the mock
-     * object (callable table). The second is a forwarding function for
-     * cases where a real function is required.
-     *
-     * @example
-     * const [mock, mockFn] = jest.fn()
-     * mockFn()
-     * expect(mock).toHaveBeenCalled()
-     */
-    function fn(): LuaTuple<[Mock, (...args: any[]) => any]>;
-    /**
-     * Creates a mock function. Optionally takes a mock implementation.
-     *
-     * Returns a LuaTuple of [mock, mockFn]. The first value is the mock
-     * object (callable table). The second is a forwarding function for
-     * cases where a real function is required.
-     *
-     * @example
-     * const [mock, mockFn] = jest.fn((x: number) => x + 1)
-     * mockFn(1)
-     * expect(mock).toHaveReturnedWith(2)
-     */
-    function fn<T, Y extends any[]>(implementation?: (...args: Y) => T): LuaTuple<[Mock<T, Y>, (...args: Y) => T]>;
+	function dontMock(moduleScript: ModuleScript | string): typeof jest;
+	/**
+	 * Creates a mock function. Optionally takes a mock implementation.
+	 *
+	 * Returns a LuaTuple of [mock, mockFn]. The first value is the mock
+	 * object (callable table). The second is a forwarding function for
+	 * cases where a real function is required.
+	 *
+	 * @example
+	 * const [mock, mockFn] = jest.fn()
+	 * mockFn()
+	 * expect(mock).toHaveBeenCalled()
+	 */
+	function fn(): LuaTuple<[Mock, (...args: any[]) => any]>;
+	/**
+	 * Creates a mock function. Optionally takes a mock implementation.
+	 *
+	 * Returns a LuaTuple of [mock, mockFn]. The first value is the mock
+	 * object (callable table). The second is a forwarding function for
+	 * cases where a real function is required.
+	 *
+	 * @example
+	 * const [mock, mockFn] = jest.fn((x: number) => x + 1)
+	 * mockFn(1)
+	 * expect(mock).toHaveReturnedWith(2)
+	 */
+	function fn<T, Y extends any[]>(implementation?: (...args: Y) => T): LuaTuple<[Mock<T, Y>, (...args: Y) => T]>;
 	/**
 	 * Returns whether the given function is a mock function.
 	 */
@@ -225,14 +225,19 @@ export declare namespace jest {
 	 * end)
 	 * ```
 	 */
-	function mock<T = unknown>(moduleScript: ModuleScript, factory?: () => T): typeof jest;
+	function mock<T = unknown>(moduleScript: ModuleScript | string, factory?: () => T): typeof jest;
 
 	/**
 	 * Returns the actual module instead of a mock, bypassing all checks on
 	 * whether the module should receive a mock implementation or not.
 	 */
 	// tslint:disable-next-line: no-unnecessary-generics
-	function requireActual<TModule extends {} = any>(moduleScript: ModuleScript): TModule;
+	function requireActual<TModule extends {} = any>(moduleScript: ModuleScript | string): TModule;
+	/**
+	 * Returns a mock module instead of the actual module, bypassing all checks
+	 * on whether the module should be required normally or not.
+	 */
+	function requireMock<TModule extends {} = any>(moduleScript: ModuleScript | string): TModule;
 	/**
 	 * Resets the module registry - the cache of all required modules. This is
 	 * useful to isolate modules where local state might conflict between tests.
@@ -283,7 +288,7 @@ export declare namespace jest {
 	 * for the specified module.
 	 */
 	// tslint:disable-next-line: no-unnecessary-generics
-	function setMock<T>(moduleScript: ModuleScript, moduleExports: T): typeof jest;
+	function setMock<T>(moduleScript: ModuleScript | string, moduleExports: T): typeof jest;
 	/**
 	 * Creates a mock function similar to jest.fn but also tracks calls to `object[methodName]`
 	 *
@@ -332,7 +337,7 @@ export declare namespace jest {
 	 * Indicates that the module system should never return a mocked version of
 	 * the specified module from require() (e.g. that it should always return the real module).
 	 */
-	function unmock(moduleScript: ModuleScript): typeof jest;
+	function unmock(moduleScript: ModuleScript | string): typeof jest;
 	/**
 	 * Instructs Jest Lua to use fake versions of the standard Lua and Roblox timer
 	 * functions (`delay`, `tick`, `os.time`, `os.clock`, `task.delay` as well as `DateTime`).
@@ -444,11 +449,11 @@ export declare namespace jest {
 		 */
 		only: It;
 		/**
-         * Mark this test as expecting to fail.
-         *
-         * Only available in the default `jest-circus` runner.
-         */
-        failing: It;
+		 * Mark this test as expecting to fail.
+		 *
+		 * Only available in the default `jest-circus` runner.
+		 */
+		failing: It;
 		/**
 		 * Skips running this test in the current file.
 		 */

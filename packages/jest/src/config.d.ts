@@ -117,6 +117,7 @@ export type DefaultOptions = {
 	maxWorkers: number | string;
 	mockDataModel: boolean;
 	noStackTrace: boolean;
+	stackDepth: number;
 	oldFunctionSpying: boolean;
 	passWithNoTests: boolean;
 	resetMocks: boolean;
@@ -168,6 +169,7 @@ export type InitialOptions = Partial<{
 	id: string;
 	mockDataModel: boolean;
 	noStackTrace: boolean;
+	stackDepth: number;
 	outputFile: Path;
 	oldFunctionSpying: boolean;
 	passWithNoTests: boolean;
@@ -228,6 +230,7 @@ export type GlobalConfig = {
 	maxConcurrency: number;
 	maxWorkers: number;
 	noStackTrace: boolean;
+	stackDepth: number;
 	nonFlagArgs: Array<string>;
 	outputFile?: Path;
 	passWithNoTests: boolean;
@@ -300,6 +303,7 @@ export type Argv = Partial<{
 	json: boolean;
 	maxWorkers: number | string;
 	noStackTrace: boolean;
+	stackDepth: number;
 	outputFile: string;
 	preset: string | undefined;
 	projects: Array<string>;
