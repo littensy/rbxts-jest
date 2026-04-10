@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/jest-benchmark",
-	"version": "3.13.3-ts.1",
+	"version": "3.16.0-ts.1",
 	"description": "JestBenchmark bindings for Roblox",
 	"scripts": {
 		"prepublishOnly": "cp ../../README.md . && cp ../../LICENSE.md ."
@@ -26,6 +26,6 @@
 		"roblox-ts"
 	],
 	"dependencies": {
-		"@rbxts-js/jest-benchmark": "^3.13.3-ts.3"
+		"@rbxts-js/jest-benchmark": "^3.16.0-ts.1"
 	}
 }
