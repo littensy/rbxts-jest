@@ -521,7 +521,7 @@ export declare namespace jest {
 	type EqualityTester = (a: any, b: any) => boolean | undefined;
 
 	interface MatcherUtils {
-		readonly isNever: boolean;
+		readonly isNot: boolean;
 		readonly dontThrow: () => void;
 		readonly promise: string;
 		readonly assertionCalls: number;
